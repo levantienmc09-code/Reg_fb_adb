@@ -78,7 +78,8 @@ DEFAULT_CONFIG = {
     "delay_giua_cac_lan_chay": 5,
     "delay_thu_lai_khi_loi": 6,
     "so_lan_thu_mua_mail": 0,
-    "so_lan_thu_get_code": 20
+    "so_lan_thu_get_code": 20,
+    "mat_khau_fb": "@Letien09"
 }
 
 def doc_config():
@@ -126,6 +127,11 @@ def cau_hinh_delay():
     print("\n📌 CÁC THÔNG SỐ DELAY (giây):")
     print("─"*50)
     
+    # Nhóm 0: Đặt Mật Khẩu
+    print(f"\n{trang}【MẬT KHẨU FACEBOOK】{trang}")
+    mat_khau_moi = input(f"   Nhập mật khẩu muốn đặt: ").strip()
+    if mat_khau_moi:
+        config["mat_khau_fb"] = mat_khau_moi
     # Nhóm 1: Mua mail
     print(f"\n{trang}【MUA MAIL】{trang}")
     config["delay_mua_mail_het_hang"] = nhap_delay("Delay khi hết hàng", config["delay_mua_mail_het_hang"])
@@ -189,6 +195,7 @@ def cau_hinh_delay():
     config["so_lan_thu_mua_mail"] = int(nhap_delay("Số lần thử mua mail (0=infinite)", config["so_lan_thu_mua_mail"]))
     config["so_lan_thu_get_code"] = int(nhap_delay("Số lần thử get code", config["so_lan_thu_get_code"]))
     
+
     luu_config(config)
     print("\n✅ Đã lưu cấu hình!")
     return config
@@ -569,8 +576,8 @@ class FacebookUI:
                 pass
             time.sleep(delay)
     
-        toast("❌ Không lấy được code sau 20 lần")
-        print("\n❌ Không lấy được code sau 20 lần!")
+        toast("❌ Không lấy được code")
+        print("\n❌ Không lấy được code!")
         xoa_du_lieu_fb()
         return self.chay_dang_ky(api_key)
     
@@ -710,7 +717,7 @@ class FacebookUI:
             print("\n✅ Số điện thoại hợp lệ!")
             break
         
-        mat_khau_fb = "@Letien09"
+        mat_khau_fb = self.config["mat_khau_fb"]
         toast(f"🔑 Nhập Mk: {mat_khau_fb}")
         print("\n[23] Nhập Mật khẩu...")
         if self.click_truong("Mật khẩu", False, 5, 1):
@@ -733,7 +740,7 @@ class FacebookUI:
         
         print("\n[25] Click Tôi đồng ý...")
         self.click_toi_dong_y()
-        toast("Click Tôi đồng ý - Chờ 25 giây")
+        toast("Click Tôi đồng ý")
 
         print("\n[26] Đang chờ...")
         time.sleep(self.config["delay_cho_toi_dong_y"])
