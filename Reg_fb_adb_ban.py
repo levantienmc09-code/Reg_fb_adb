@@ -698,7 +698,7 @@ class FacebookUI:
             time.sleep(self.config["delay_click_tiep_sdt"])
             
             print("\nClick Tiếp tục tạo tài khoản")
-            if not self.click_text_chua("Tiếp tục tạo tài khoản", "Tiếp tục tạo tài khoản", 2, 0.5, click_duoi=True):
+            if not self.click_text_chua("Tiếp tục tạo tài khoản", "Tiếp tục tạo tài khoản", 3, 1, click_duoi=True):
                print("   ⚠️ Không tìm thấy, bỏ qua...")
             time.sleep(self.config["delay_click_tiep_tuc_tao_tk"])
             
@@ -709,8 +709,9 @@ class FacebookUI:
             
             if self.kiem_tra_text(texts_loi, 2, self.config["delay_kiem_tra_sdt"]):
                 print("\n⚠️ Số điện thoại không hợp lệ, nhập lại...")
-                self.d.press("select_all")
-                self.d.press("del")
+                self.click_truong("Số di động", False, 2, 0.5)
+                time.sleep(0.3)
+                self.d.clear_text()
                 time.sleep(0.5)
                 continue
             
